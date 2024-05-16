@@ -53,6 +53,7 @@ resource "aws_ecs_task_definition" "ecs_task" {
       "secretOptions": []
     },
     "systemControls": []
+    
   }
 ]
 DEFINITION

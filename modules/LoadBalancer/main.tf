@@ -16,17 +16,28 @@ resource "aws_lb_target_group" "prod_tg" {
   protocol = "HTTP"
   vpc_id   = var.prod_vpc_id
   target_type = "ip"
+  # health_check {
+  #   enabled             = true
+  #   healthy_threshold   = 3
+  #   interval            = 30
+  #   matcher             = "404"
+  #   path                = "/status"
+  #   port                = "3000"
+  #   protocol            = "HTTP"
+  #   timeout             = 5
+  #   unhealthy_threshold = 3
+  # }
   health_check {
-    enabled             = true
-    healthy_threshold   = 3
-    interval            = 30
-    matcher             = "404"
-    path                = "/status"
-    port                = "3000"
+    healthy_threshold   = "3"
+    interval            = "30"
     protocol            = "HTTP"
-    timeout             = 5
-    unhealthy_threshold = 3
-  }
+    matcher             = "404"
+    timeout             = "3"
+    path                = "/api/health-check"
+    unhealthy_threshold = "2"
+    }
+  
+
 }
 
 
@@ -38,16 +49,25 @@ resource "aws_lb_target_group" "uat_tg" {
   vpc_id   = var.prod_vpc_id
   target_type = "ip"
   
+  # health_check {
+  #   enabled             = true
+  #   healthy_threshold   = 3
+  #   interval            = 30
+  #   matcher             = "404"
+  #   path                = "/status"
+  #   port                = "3000"
+  #   protocol            = "HTTP"
+  #   timeout             = 5
+  #   unhealthy_threshold = 3
+  # }
   health_check {
-    enabled             = true
-    healthy_threshold   = 3
-    interval            = 30
-    matcher             = "404"
-    path                = "/status"
-    port                = "3000"
-    protocol            = "HTTP"
-    timeout             = 5
-    unhealthy_threshold = 3
+  healthy_threshold   = "3"
+  interval            = "30"
+  protocol            = "HTTP"
+  matcher             = "200"
+  timeout             = "3"
+  path                = "/api/health-check"
+  unhealthy_threshold = "2"
   }
 }
 

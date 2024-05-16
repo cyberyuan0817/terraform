@@ -59,6 +59,12 @@ module "Prod_private_rtb" {
 
 }
 
+module "cloudwatch_log" {
+    source = "../Cloudwatch"
+    env_prefix = var.prod_env_prefix
+}
+
+
 
 // Associate the Public Subet to the Public Route
 module "Prod_rtb_association" {
@@ -93,6 +99,8 @@ module "create_vpc_peering" {
     vpc_uat_cidr_for_peering = var.vpc_uat_cidr_for_peering
     vpc_uat_rtb_id = var.vpc_uat_rtb_id
 }
+
+
 
 // Create the ALB for UAT and Prod ECS task
 module "create_load_balancer" {
