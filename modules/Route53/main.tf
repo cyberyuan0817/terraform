@@ -8,7 +8,7 @@ data "aws_route53_zone" "host_web_address" {
 
 resource "aws_route53_record" "prod_A" {
   zone_id = data.aws_route53_zone.host_web_address.zone_id
-  name    = var.host_web_address
+  name    = "alb.${var.host_web_address}"
   type    = "A"
 
   alias {
@@ -20,7 +20,7 @@ resource "aws_route53_record" "prod_A" {
 
 resource "aws_route53_record" "prod_AAAA" {
   zone_id = data.aws_route53_zone.host_web_address.zone_id
-  name    = var.host_web_address
+  name    = "alb.${var.host_web_address}"
   type    = "AAAA"
 
   alias {

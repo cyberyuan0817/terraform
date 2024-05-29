@@ -31,7 +31,7 @@ resource "aws_lb_target_group" "prod_tg" {
     healthy_threshold   = "3"
     interval            = "30"
     protocol            = "HTTP"
-    matcher             = "404"
+    matcher             = "200"
     timeout             = "3"
     path                = "/api/health-check"
     unhealthy_threshold = "2"
@@ -76,8 +76,15 @@ resource "aws_lb_target_group" "uat_tg" {
 // Create the ALB listener
 resource "aws_lb_listener" "my_listener" {
   load_balancer_arn = aws_lb.lb.arn
-  port              = 80
-  protocol          = "HTTP"
+  port              = 443
+  protocol          = "HTTPS"
+
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06" // Set the SSL policy
+
+  // Replace "your_certificate_arn" with the ARN of your SSL certificate
+  certificate_arn   = var.alb_ssl_srn
+
+
   # Add other listener configuration as needed
   default_action {
     type             = "forward"
@@ -102,4 +109,9 @@ resource "aws_lb_listener_rule" "rule_2" {
       values = ["uat.yuanpawsnclawshotel.com"]
     }
   }
+}
+
+resource "aws_lb_listener_certificate" "additional_cert" {
+  listener_arn    = aws_lb_listener.my_listener.arn
+  certificate_arn = var.alb_uat_ssl_srn
 }

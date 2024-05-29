@@ -20,3 +20,7 @@ variable uat_subnet_ids_list{
 
 variable uat_ecs_taskdefinition {}
 
+
+
+variable alb_ssl_srn {}
+variable alb_uat_ssl_srn {}

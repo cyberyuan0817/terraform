@@ -36,6 +36,34 @@ resource "aws_ecs_task_definition" "ecs_task" {
         "appProtocol": "http"
       }
     ],
+    "secrets": [
+      {
+        "name": "MONGO_URI",
+        "valueFrom":"arn:aws:ssm:ap-southeast-2:211125759186:parameter/MONGO_URI"
+      },
+      {
+        "name": "JWT_SECRET",
+        "valueFrom":"arn:aws:ssm:ap-southeast-2:211125759186:parameter/JWT_SECRET"
+      },
+      {
+        "name": "JWT_EXPIRE",
+        "valueFrom":"arn:aws:ssm:ap-southeast-2:211125759186:parameter/JWT_EXPIRE"
+      },
+      {
+        "name": "NEXT_PUBLIC_SHOW_LOGGER",
+        "valueFrom":"arn:aws:ssm:ap-southeast-2:211125759186:parameter/NEXT_PUBLIC_SHOW_LOGGER"
+      },
+      {
+        "name": "NEXT_PUBLIC_MAPS_API_KEY",
+        "valueFrom":"arn:aws:ssm:ap-southeast-2:211125759186:parameter/NEXT_PUBLIC_MAPS_API_KEY"
+      },
+      {
+        "name": "NEXT_PUBLIC_BACKEND_URL",
+        "valueFrom":"arn:aws:ssm:ap-southeast-2:211125759186:parameter/NEXT_PUBLIC_BACKEND_URL"
+      }
+      
+
+    ],
     "essential": true,
     "environment": [],
     "environmentFiles": [],

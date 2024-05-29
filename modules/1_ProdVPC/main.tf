@@ -101,6 +101,10 @@ module "create_vpc_peering" {
 }
 
 
+module "create_alb_ssl" {
+    source = "../ACM"
+    host_web_address = var.host_web_address
+}
 
 // Create the ALB for UAT and Prod ECS task
 module "create_load_balancer" {
@@ -118,6 +122,13 @@ module "create_load_balancer" {
     vpc_uat_id_for_peering = var.vpc_uat_id_for_peering
     load_balancer_security_group_id = module.Prod_security_group.security_group_info.id
 
+    alb_ssl_srn = module.create_alb_ssl.ssl_cert_arn
+    alb_uat_ssl_srn = module.create_alb_ssl.ssl_uat_cert_arn
+
+}
+
+resource "null_resource" "acm_dependency" {
+  depends_on = [module.create_load_balancer]
 }
 
 
