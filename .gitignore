@@ -7,4 +7,4 @@
 *.tfstate.*
 
 # tf variable file
-.tfvars
+*.tfvars
