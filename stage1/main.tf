@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "be-terraform-state-bucket"
+  bucket = "be-terraform-state-bucket-yuan"
   acl    = "private"
 
   versioning {
@@ -7,12 +7,12 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 
   tags = {
-    Name = "be-terraform-state"
+    Name = "be-terraform-state-yuan"
   }
 }
 
 resource "aws_dynamodb_table" "terraform_lock" {
-  name         = "be-terraform-lock-table"
+  name         = "be-terraform-lock-table-yuan"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
 
@@ -22,6 +22,6 @@ resource "aws_dynamodb_table" "terraform_lock" {
   }
 
   tags = {
-    Name = "be-terraform-lock-table"
+    Name = "be-terraform-lock-table-yuan"
   }
 }
